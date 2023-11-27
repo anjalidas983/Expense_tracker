@@ -4,15 +4,20 @@ from django.utils import timezone
 import datetime
 
 class CategorySerializer(serializers.ModelSerializer):
+    
     class Meta:
         model=Category
         fields='__all__'
+   
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
+    
+    category_type=CategorySerializer
+
     class Meta:
         model=Expense
-        fields = '__all__'
+        fields = ['id','expense_name','amount','expense_category','date']
 
     def validate_amount(self,value):
         if value<0:
@@ -22,6 +27,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
         if value>timezone.now().date():
             raise serializers.ValidationError('Date cannot be in future')
         return value
+    
+
 class TotalExpenseSerializer(serializers.Serializer):
     total_expense=serializers.DecimalField(max_digits=20,decimal_places=2)
 
