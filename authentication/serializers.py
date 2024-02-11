@@ -20,7 +20,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
     def validate_password(self,value):
-        # value = generic_pwd_validation(value)
+        
         special_char = "@!=_;:.,%$^&*+-?\/><()[]~"
         if not any(char in special_char for char in value):
             raise serializers.ValidationError("Password must contain at least one special character.")
@@ -42,7 +42,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class PasswordResetSerializer(serializers.Serializer):
     email = serializers.EmailField()
     def validate_email(self, value):
-        user = CustomUser.objects.filter(email=value).first()
+        user = CustomUser.objects.filter(email=value)
         if not user:
             raise serializers.ValidationError('No user found with this email address.')
         return value

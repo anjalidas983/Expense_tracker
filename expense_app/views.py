@@ -15,7 +15,7 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters import rest_framework as filters 
  
 
-# Create your views here.
+
 
 #Adding expense view
 class AddExpenseView(CreateAPIView):
@@ -63,6 +63,7 @@ class RecentTransactionList(ListAPIView):
         user=self.request.user
         queryset=Expense.objects.filter(user=user).order_by('-date')[:8]
         return queryset
+    
 #Retrieving deleting and updating particular instance of the expense model
 class ExpenseDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class=ExpenseSerializer
