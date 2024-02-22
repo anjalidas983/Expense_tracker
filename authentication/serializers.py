@@ -29,7 +29,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         if len(value)<8:
             raise serializers.ValidationError("Password must contain atleast 8 character.")
         return value
-   
+    
     class Meta:
         model=CustomUser
         fields=('id','username','email','password')
